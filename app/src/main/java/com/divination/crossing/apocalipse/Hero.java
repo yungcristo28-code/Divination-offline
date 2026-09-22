@@ -33,6 +33,16 @@ public class Hero extends CombatEntity {
 
 
 
+    // VISUAL
+
+    private CharacterSprite characterSprite;
+
+    private AnimationController animationController;
+
+
+
+
+
     public Hero(
             String name,
             float x,
@@ -42,6 +52,7 @@ public class Hero extends CombatEntity {
             float defense,
             float speed
     ){
+
 
         super(
                 x,
@@ -53,7 +64,9 @@ public class Hero extends CombatEntity {
         );
 
 
+
         this.name = name;
+
 
 
         level = 1;
@@ -70,15 +83,26 @@ public class Hero extends CombatEntity {
 
 
 
-        // Igor começa com roubo de vida
-
         vampirism = 0.12f;
 
 
 
         state = "IDLE";
 
+
+
+        characterSprite =
+                new CharacterSprite();
+
+
+
+        animationController =
+                new AnimationController();
+
+
     }
+
+
 
 
 
@@ -106,8 +130,7 @@ public class Hero extends CombatEntity {
 
 
 
-        float damage =
-                attack;
+        float damage = attack;
 
 
 
@@ -117,10 +140,9 @@ public class Hero extends CombatEntity {
 
 
 
-        // Vampirismo
-
         float healing =
                 damage * vampirism;
+
 
 
         heal(
@@ -128,10 +150,55 @@ public class Hero extends CombatEntity {
         );
 
 
-        state = "ATTACK";
+
+        setState(
+                "ATTACK"
+        );
 
 
     }
+
+
+
+
+
+
+
+    // ==========================
+    // ATUALIZA VISUAL
+    // ==========================
+
+
+    public void updateSprite(){
+
+
+        animationController.update();
+
+
+        characterSprite.update();
+
+
+    }
+
+
+
+
+
+    public CharacterSprite getCharacterSprite(){
+
+        return characterSprite;
+
+    }
+
+
+
+    public AnimationController getAnimationController(){
+
+        return animationController;
+
+    }
+
+
 
 
 
@@ -167,7 +234,9 @@ public class Hero extends CombatEntity {
 
         }
 
+
     }
+
 
 
 
@@ -187,8 +256,6 @@ public class Hero extends CombatEntity {
 
 
 
-        // crescimento básico
-
         maxHp += 80;
 
         hp = maxHp;
@@ -206,6 +273,8 @@ public class Hero extends CombatEntity {
 
 
 
+
+
     // ==========================
     // OURO
     // ==========================
@@ -215,6 +284,7 @@ public class Hero extends CombatEntity {
             int amount
     ){
 
+
         if(amount > 0){
 
             gold += amount;
@@ -222,6 +292,7 @@ public class Hero extends CombatEntity {
         }
 
     }
+
 
 
 
@@ -258,6 +329,8 @@ public class Hero extends CombatEntity {
 
 
 
+
+
     // ==========================
     // DIAMANTES
     // ==========================
@@ -267,6 +340,7 @@ public class Hero extends CombatEntity {
             int amount
     ){
 
+
         if(amount > 0){
 
             diamonds += amount;
@@ -274,6 +348,8 @@ public class Hero extends CombatEntity {
         }
 
     }
+
+
 
 
 
@@ -288,9 +364,17 @@ public class Hero extends CombatEntity {
             String state
     ){
 
+
         this.state = state;
 
+
+        animationController.setAnimation(
+                state
+        );
+
+
     }
+
 
 
 
@@ -299,6 +383,8 @@ public class Hero extends CombatEntity {
         return state;
 
     }
+
+
 
 
 
@@ -366,9 +452,11 @@ public class Hero extends CombatEntity {
 
 
 
+
     public void setVampirism(
             float value
     ){
+
 
         if(value < 0){
 
@@ -378,6 +466,7 @@ public class Hero extends CombatEntity {
 
 
         vampirism = value;
+
 
     }
 
