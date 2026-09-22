@@ -17,14 +17,16 @@ private EffectManager effectManager;
 
     public BattleSystem(Hero player) {
 
-        this.player = player;
+    this.player = player;
 
-        enemies = new ArrayList<>();
-        summons = new ArrayList<>();
+    enemies = new ArrayList<>();
+    summons = new ArrayList<>();
 
-        wave = 1;
-        gold = 500;
-    }
+    effectManager = new EffectManager();
+
+    wave = 1;
+    gold = 500;
+}
 
 
     // ==========================
