@@ -9,14 +9,17 @@ public class BattleSystem {
 
     private Hero player;
 
+
     private ArrayList<Enemy> enemies;
 
     private ArrayList<Hero> summons;
 
 
+
     private EffectManager effectManager;
 
     private DamageManager damageManager;
+
 
 
     private int wave;
@@ -53,11 +56,15 @@ public class BattleSystem {
 
 
 
+
     // ==========================
     // ADICIONAR INIMIGO
     // ==========================
 
-    public void addEnemy(Enemy enemy){
+
+    public void addEnemy(
+            Enemy enemy
+    ){
 
         enemies.add(enemy);
 
@@ -68,14 +75,16 @@ public class BattleSystem {
 
 
     // ==========================
-    // ATAQUE DO JOGADOR
+    // ATAQUE DO HEROI
     // ==========================
+
 
     public void playerAttack(){
 
 
         Enemy target =
                 getClosestEnemy();
+
 
 
         if(target == null){
@@ -86,7 +95,7 @@ public class BattleSystem {
 
 
 
-        float before =
+        float hpBefore =
                 target.getHp();
 
 
@@ -96,25 +105,70 @@ public class BattleSystem {
 
 
         int damage =
-                (int)(before - target.getHp());
+                (int)(
+                hpBefore -
+                target.getHp()
+                );
 
 
 
         damageManager.addDamage(
+
                 target.getX(),
+
                 target.getY() - 50,
+
                 damage
+
         );
 
 
 
         effectManager.addEffect(
+
                 target.getX(),
+
                 target.getY(),
+
                 15,
+
                 "SLASH"
+
         );
 
+
+    }
+
+
+
+
+
+    // ==========================
+    // SUMMON
+    // ==========================
+
+
+    public boolean summonHero(
+            Hero ally,
+            int cost
+    ){
+
+
+        if(gold < cost){
+
+            return false;
+
+        }
+
+
+
+        gold -= cost;
+
+
+        summons.add(ally);
+
+
+        return true;
 
     }
 
@@ -126,17 +180,22 @@ public class BattleSystem {
     // ATUALIZA BATALHA
     // ==========================
 
+
     public void update(){
 
 
+
         effectManager.update();
+
 
         damageManager.update();
 
 
 
+
         Iterator<Enemy> iterator =
                 enemies.iterator();
+
 
 
 
@@ -163,9 +222,17 @@ public class BattleSystem {
 
 
                 enemy.moveTowards(
+
                         player.getX()
+
                 );
 
+
+                enemy.updateAttack(
+
+                        player
+
+                );
 
             }
 
@@ -174,6 +241,8 @@ public class BattleSystem {
 
 
 
+
+        // aliados invocados atacam
 
         for(Hero ally : summons){
 
@@ -199,8 +268,9 @@ public class BattleSystem {
 
 
     // ==========================
-    // PEGAR INIMIGO MAIS PROXIMO
+    // PEGAR INIMIGO
     // ==========================
+
 
     private Enemy getClosestEnemy(){
 
@@ -219,19 +289,29 @@ public class BattleSystem {
 
 
 
+
     // ==========================
-    // RECOMPENSA
+    // RECOMPENSAS
     // ==========================
+
 
     private void rewardEnemy(
             Enemy enemy
     ){
 
 
-        gold += 20;
+        gold += enemy.getGoldReward();
+
+
+        player.addExperience(
+
+                enemy.getExperienceReward()
+
+        );
 
 
     }
+
 
 
 
@@ -244,6 +324,14 @@ public class BattleSystem {
     public ArrayList<Enemy> getEnemies(){
 
         return enemies;
+
+    }
+
+
+
+    public ArrayList<Hero> getSummons(){
+
+        return summons;
 
     }
 
@@ -278,5 +366,14 @@ public class BattleSystem {
         return gold;
 
     }
+
+
+
+    public int getWave(){
+
+        return wave;
+
+    }
+
 
 }
