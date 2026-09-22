@@ -3,187 +3,236 @@ package com.divination.crossing.apocalipse;
 import java.util.ArrayList;
 import java.util.Iterator;
 
+
 public class BattleSystem {
+
 
     private Hero player;
 
-private ArrayList<Enemy> enemies;
-private ArrayList<Hero> summons;
+    private ArrayList<Enemy> enemies;
 
-private EffectManager effectManager;
+    private ArrayList<Hero> summons;
+
+
+    private EffectManager effectManager;
+
+    private DamageManager damageManager;
+
 
     private int wave;
+
     private int gold;
 
-    public BattleSystem(Hero player) {
 
-    this.player = player;
 
-    enemies = new ArrayList<>();
-    summons = new ArrayList<>();
+    public BattleSystem(Hero player){
 
-    effectManager = new EffectManager();
 
-    wave = 1;
-    gold = 500;
-}
+        this.player = player;
+
+
+        enemies = new ArrayList<>();
+
+        summons = new ArrayList<>();
+
+
+        effectManager =
+                new EffectManager();
+
+
+        damageManager =
+                new DamageManager();
+
+
+        wave = 1;
+
+        gold = 500;
+
+    }
+
+
 
 
     // ==========================
     // ADICIONAR INIMIGO
     // ==========================
 
-    public void addEnemy(Enemy enemy) {
+    public void addEnemy(Enemy enemy){
 
         enemies.add(enemy);
+
     }
 
 
-    // ==========================
-    // ATAQUE DO IGOR
-    // ==========================
 
-    public void playerAttack() {
-
-        Enemy target = getClosestEnemy();
-
-        if(target != null){
-
-            player.attack(target);
-
-            if(!target.isAlive()){
-
-                rewardEnemy(target);
-
-                enemies.remove(target);
-            }
-        }
-    }
 
 
     // ==========================
-    // INIMIGO MAIS PRÓXIMO
+    // ATAQUE DO JOGADOR
     // ==========================
 
-    private Enemy getClosestEnemy(){
-
-        Enemy closest = null;
-
-        float distance = Float.MAX_VALUE;
+    public void playerAttack(){
 
 
-        for(Enemy enemy : enemies){
-
-            float d =
-                    Math.abs(
-                            enemy.getX()
-                    -
-                            player.getX()
-                    );
+        Enemy target =
+                getClosestEnemy();
 
 
-            if(d < distance){
+        if(target == null){
 
-                distance = d;
-                closest = enemy;
-            }
+            return;
+
         }
 
 
-        return closest;
-    }
+
+        float before =
+                target.getHp();
 
 
 
-    // ==========================
-    // RECOMPENSAS
-    // ==========================
+        player.attack(target);
 
-    private void rewardEnemy(
-            Enemy enemy
-    ){
 
-        gold += enemy.getGoldReward();
 
-        player.addGold(
-                enemy.getGoldReward()
+        int damage =
+                (int)(before - target.getHp());
+
+
+
+        damageManager.addDamage(
+                target.getX(),
+                target.getY() - 50,
+                damage
         );
+
+
+
+        effectManager.addEffect(
+                target.getX(),
+                target.getY(),
+                15,
+                "SLASH"
+        );
+
+
     }
 
 
-
-    // ==========================
-    // SUMMON
-    // ==========================
-
-    public boolean summonHero(
-            Hero hero
-    ){
-
-        int cost = 100 + (summons.size()*50);
-
-
-        if(player.spendGold(cost)){
-
-            summons.add(hero);
-
-            return true;
-        }
-
-
-        return false;
-    }
 
 
 
     // ==========================
     // ATUALIZA BATALHA
     // ==========================
-  public void update()
-    
-    effectManager.update();
 
-    Iterator<Enemy> iterator =
-            enemies.iterator();
+    public void update(){
+
+
+        effectManager.update();
+
+        damageManager.update();
+
+
+
+        Iterator<Enemy> iterator =
+                enemies.iterator();
+
 
 
         while(iterator.hasNext()){
+
 
             Enemy enemy =
                     iterator.next();
 
 
+
             if(!enemy.isAlive()){
+
 
                 rewardEnemy(enemy);
 
+
                 iterator.remove();
+
 
             }
 
             else {
 
+
                 enemy.moveTowards(
                         player.getX()
                 );
+
+
             }
+
         }
 
 
-        // aliados atacam automaticamente
+
+
 
         for(Hero ally : summons){
+
 
             Enemy target =
                     getClosestEnemy();
 
 
+
             if(target != null){
 
                 ally.attack(target);
+
             }
+
         }
+
+
     }
+
+
+
+
+
+    // ==========================
+    // PEGAR INIMIGO MAIS PROXIMO
+    // ==========================
+
+    private Enemy getClosestEnemy(){
+
+
+        if(enemies.size() == 0){
+
+            return null;
+
+        }
+
+
+        return enemies.get(0);
+
+    }
+
+
+
+
+    // ==========================
+    // RECOMPENSA
+    // ==========================
+
+    private void rewardEnemy(
+            Enemy enemy
+    ){
+
+
+        gold += 20;
+
+
+    }
+
 
 
 
@@ -191,30 +240,43 @@ private EffectManager effectManager;
     // GETTERS
     // ==========================
 
+
     public ArrayList<Enemy> getEnemies(){
 
         return enemies;
+
     }
 
 
-    public ArrayList<Hero> getSummons(){
 
-        return summons;
+    public EffectManager getEffectManager(){
+
+        return effectManager;
+
     }
+
+
+
+    public DamageManager getDamageManager(){
+
+        return damageManager;
+
+    }
+
+
+
+    public Hero getPlayer(){
+
+        return player;
+
+    }
+
 
 
     public int getGold(){
 
         return gold;
+
     }
 
-
-    public int getWave(){
-
-        return wave;
-        public EffectManager getEffectManager(){
-
-    return effectManager;
-
 }
-    
