@@ -9,11 +9,36 @@ import android.view.View;
 public class GameView extends View {
 
     private final Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
-
+    
+    private Hero igor;
+    private BattleSystem battleSystem;
+    private EffectManager effectManager;
     public GameView(Context context) {
-        super(context);
-        paint.setTypeface(android.graphics.Typeface.DEFAULT_BOLD);
-    }
+    super(context);
+
+    paint.setTypeface(
+            android.graphics.Typeface.DEFAULT_BOLD
+    );
+
+
+    igor = new Hero(
+            "Igor",
+            250,
+            300,
+            1000,
+            80,
+            20,
+            4
+    );
+
+
+    battleSystem =
+            new BattleSystem(igor);
+
+
+    effectManager =
+            battleSystem.getEffectManager();
+}
 
     @Override
     protected void onDraw(Canvas canvas) {
