@@ -21,24 +21,19 @@ public class GameView extends View {
     );
 
 
-    igor = new Hero(
-            "Igor",
-            250,
-            300,
-            1000,
-            80,
-            20,
-            4
-    );
+    GameManager manager =
+        GameManager.getInstance();
+ 
+igor =
+        manager.getIgor();
 
 
-    battleSystem =
-            new BattleSystem(igor);
+battleSystem =
+        manager.getBattleSystem();
 
 
-    effectManager =
-            battleSystem.getEffectManager();
-}
+effectManager =
+        battleSystem.getEffectManager();
 
     @Override
     protected void onDraw(Canvas canvas) {
