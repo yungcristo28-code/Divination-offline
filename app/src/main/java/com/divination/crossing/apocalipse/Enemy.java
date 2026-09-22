@@ -1,122 +1,231 @@
 package com.divination.crossing.apocalipse;
 
+
 public class Enemy extends CombatEntity {
+
 
     private String name;
 
-    private int goldReward;
+
     private int experienceReward;
 
+    private int goldReward;
+
+    private int diamondChance;
+
+
+
     private boolean boss;
-    private boolean miniBoss;
-    private boolean mvp;
+
+
+
+    private float attackRange;
+
+    private float attackCooldown;
+
+    private float attackTimer;
+
+
+
 
     public Enemy(
             String name,
             float x,
             float y,
-            float hp,
+            float maxHp,
             float attack,
             float defense,
             float speed
-    ) {
+    ){
+
 
         super(
                 x,
                 y,
-                hp,
+                maxHp,
                 attack,
                 defense,
                 speed
         );
 
+
         this.name = name;
 
-        this.goldReward = 20;
-        this.experienceReward = 10;
+
+        experienceReward = 25;
+
+        goldReward = 20;
+
+        diamondChance = 2;
+
+
+
+        boss = false;
+
+
+
+        attackRange = 80;
+
+        attackCooldown = 60;
+
+        attackTimer = 0;
+
     }
 
 
-    public void moveTowards(float targetX) {
 
-        if (!alive) {
+
+
+    // ==========================
+    // MOVIMENTO
+    // ==========================
+
+
+    public void moveTowards(
+            float targetX
+    ){
+
+
+        if(!alive){
+
             return;
+
         }
 
-        if (x < targetX) {
+
+
+        if(x < targetX){
+
             x += speed;
+
         }
 
-        else if (x > targetX) {
+        else if(x > targetX){
+
             x -= speed;
+
         }
+
     }
 
 
-    public void attackTarget(CombatEntity target) {
 
-        if (!alive) {
+
+
+    // ==========================
+    // ATAQUE AUTOMÁTICO
+    // ==========================
+
+
+    public void updateAttack(
+            Hero player
+    ){
+
+
+        if(!alive){
+
             return;
+
         }
 
-        if (target != null && target.isAlive()) {
 
-            target.takeDamage(attack);
+
+        attackTimer++;
+
+
+
+        if(
+                Math.abs(
+                        x - player.getX()
+                )
+                <= attackRange
+                &&
+                attackTimer >= attackCooldown
+        ){
+
+
+            player.takeDamage(
+                    attack
+            );
+
+
+            attackTimer = 0;
+
         }
+
     }
 
 
-    public String getName() {
-        return name;
-    }
 
 
-    public int getGoldReward() {
-        return goldReward;
-    }
+
+    // ==========================
+    // BOSS / MVP
+    // ==========================
 
 
-    public int getExperienceReward() {
-        return experienceReward;
-    }
+    public void setBoss(
+            boolean value
+    ){
 
-
-    public void setRewards(
-            int gold,
-            int experience
-    ) {
-
-        this.goldReward = gold;
-        this.experienceReward = experience;
-    }
-
-
-    public boolean isBoss() {
-        return boss;
-    }
-
-
-    public boolean isMiniBoss() {
-        return miniBoss;
-    }
-
-
-    public boolean isMvp() {
-        return mvp;
-    }
-
-
-    public void setBoss(boolean value) {
         boss = value;
+
     }
 
 
-    public void setMiniBoss(boolean value) {
-        miniBoss = value;
+
+    public boolean isBoss(){
+
+        return boss;
+
     }
 
 
-    public void setMvp(boolean value) {
-        mvp = value;
+
+
+
+    // ==========================
+    // RECOMPENSAS
+    // ==========================
+
+
+    public int getExperienceReward(){
+
+        return experienceReward;
+
     }
+
+
+
+    public int getGoldReward(){
+
+        return goldReward;
+
+    }
+
+
+
+    public int getDiamondChance(){
+
+        return diamondChance;
+
+    }
+
+
+
+
+
+    // ==========================
+    // INFORMAÇÕES
+    // ==========================
+
+
+    public String getName(){
+
+        return name;
+
+    }
+
+
+
 }
