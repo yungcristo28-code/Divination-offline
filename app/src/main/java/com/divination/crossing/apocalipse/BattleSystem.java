@@ -7,8 +7,10 @@ public class BattleSystem {
 
     private Hero player;
 
-    private ArrayList<Enemy> enemies;
-    private ArrayList<Hero> summons;
+private ArrayList<Enemy> enemies;
+private ArrayList<Hero> summons;
+
+private EffectManager effectManager;
 
     private int wave;
     private int gold;
