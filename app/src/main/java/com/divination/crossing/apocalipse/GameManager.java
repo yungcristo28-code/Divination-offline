@@ -1,53 +1,92 @@
 package com.divination.crossing.apocalipse;
 
+
 public class GameManager {
+
 
     private static GameManager instance;
 
-    private Hero igor;
+
+
+    private Hero activeHero;
+
+
     private BattleSystem battleSystem;
+
+
+
+    private int currentStage;
+
+
+
 
 
     private GameManager(){
 
-        igor = new Hero(
-                "Igor",
-                250,
-                300,
-                1000,
-                80,
-                20,
-                4
-        );
 
 
-        igor.addGold(500);
+        activeHero =
+                new Hero(
+                        "Igor",
+                        250,
+                        300,
+                        1000,
+                        80,
+                        20,
+                        4
+                );
+
+
+
+        activeHero.addGold(500);
+
+
+
+        currentStage = 1;
+
 
 
         battleSystem =
-                new BattleSystem(igor);
+                new BattleSystem(
+                        activeHero
+                );
 
 
-        createWave();
+
+        createStage();
 
     }
+
+
 
 
 
     public static GameManager getInstance(){
 
+
         if(instance == null){
 
-            instance = new GameManager();
+            instance =
+                    new GameManager();
 
         }
 
+
         return instance;
+
     }
 
 
 
-    private void createWave(){
+
+
+    // ==========================
+    // CRIAR FASE
+    // ==========================
+
+
+    private void createStage(){
+
 
         battleSystem.addEnemy(
 
@@ -64,6 +103,7 @@ public class GameManager {
         );
 
 
+
         battleSystem.addEnemy(
 
                 new Enemy(
@@ -73,27 +113,3 @@ public class GameManager {
                         450,
                         40,
                         8,
-                        1.0f
-                )
-
-        );
-
-    }
-
-
-
-    public Hero getIgor(){
-
-        return igor;
-
-    }
-
-
-
-    public BattleSystem getBattleSystem(){
-
-        return battleSystem;
-
-    }
-
-}
