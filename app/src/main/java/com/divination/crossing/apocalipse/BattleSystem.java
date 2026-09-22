@@ -139,11 +139,12 @@ private EffectManager effectManager;
     // ==========================
     // ATUALIZA BATALHA
     // ==========================
+  public void update()
+    
+    effectManager.update();
 
-    public void update(){
-
-        Iterator<Enemy> iterator =
-                enemies.iterator();
+    Iterator<Enemy> iterator =
+            enemies.iterator();
 
 
         while(iterator.hasNext()){
@@ -211,5 +212,9 @@ private EffectManager effectManager;
     public int getWave(){
 
         return wave;
-    }
+        public EffectManager getEffectManager(){
+
+    return effectManager;
+
 }
+    
