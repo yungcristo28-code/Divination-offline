@@ -12,6 +12,9 @@ public class CharacterSprite {
 
 
 
+    private Bitmap sprite;
+
+
     private Bitmap idle;
 
     private Bitmap attack;
@@ -26,21 +29,16 @@ public class CharacterSprite {
 
 
 
-    private Bitmap currentSprite;
-
-
-
     private float x;
 
     private float y;
-
 
 
     private float scale;
 
 
 
-    private AnimationController animationController;
+    private AnimationController animation;
 
 
 
@@ -55,7 +53,6 @@ public class CharacterSprite {
     public CharacterSprite(){
 
 
-
         x = 0;
 
         y = 0;
@@ -64,16 +61,17 @@ public class CharacterSprite {
         scale = 1.0f;
 
 
-
-        currentState = "IDLE";
-
-
-
-        animationController =
+        animation =
                 new AnimationController();
 
 
+
+        currentState =
+                "IDLE";
+
+
     }
+
 
 
 
@@ -86,14 +84,17 @@ public class CharacterSprite {
     // ==========================
 
 
+    public void setIdle(Bitmap bitmap){
 
-    public void setIdle(
-            Bitmap bitmap
-    ){
 
         idle = bitmap;
 
-        currentSprite = bitmap;
+        if(sprite == null){
+
+            sprite = bitmap;
+
+        }
+
 
     }
 
@@ -102,12 +103,12 @@ public class CharacterSprite {
 
 
 
-    public void setAttack(
-            Bitmap bitmap
-    ){
+    public void setAttack(Bitmap bitmap){
+
 
         attack = bitmap;
 
+
     }
 
 
@@ -115,12 +116,12 @@ public class CharacterSprite {
 
 
 
-    public void setSkill(
-            Bitmap bitmap
-    ){
+    public void setSkill(Bitmap bitmap){
+
 
         skill = bitmap;
 
+
     }
 
 
@@ -128,12 +129,12 @@ public class CharacterSprite {
 
 
 
-    public void setHit(
-            Bitmap bitmap
-    ){
+    public void setHit(Bitmap bitmap){
+
 
         hit = bitmap;
 
+
     }
 
 
@@ -141,12 +142,12 @@ public class CharacterSprite {
 
 
 
-    public void setDeath(
-            Bitmap bitmap
-    ){
+    public void setDeath(Bitmap bitmap){
+
 
         death = bitmap;
 
+
     }
 
 
@@ -154,12 +155,12 @@ public class CharacterSprite {
 
 
 
-    public void setRun(
-            Bitmap bitmap
-    ){
+    public void setRun(Bitmap bitmap){
+
 
         run = bitmap;
 
+
     }
 
 
@@ -168,15 +169,14 @@ public class CharacterSprite {
 
 
 
+
+
     // ==========================
-    // ESTADO
+    // TROCA DE ESTADO
     // ==========================
 
 
-
-    public void changeState(
-            String state
-    ){
+    public void changeState(String state){
 
 
 
@@ -184,10 +184,10 @@ public class CharacterSprite {
 
 
 
-        animationController
-                .setAnimation(
-                        state
-                );
+        animation.setAnimation(
+                state
+        );
+
 
 
 
@@ -197,82 +197,57 @@ public class CharacterSprite {
 
             case "ATTACK":
 
-
                 if(attack != null)
-
-                    currentSprite = attack;
-
+                    sprite = attack;
 
                 break;
-
-
 
 
 
             case "SKILL":
 
-
                 if(skill != null)
-
-                    currentSprite = skill;
-
+                    sprite = skill;
 
                 break;
-
 
 
 
 
             case "HIT":
 
-
                 if(hit != null)
-
-                    currentSprite = hit;
-
+                    sprite = hit;
 
                 break;
-
 
 
 
 
             case "DEATH":
 
-            case "DEAD":
-
-
                 if(death != null)
-
-                    currentSprite = death;
-
+                    sprite = death;
 
                 break;
-
 
 
 
 
             case "RUN":
 
-
                 if(run != null)
-
-                    currentSprite = run;
-
+                    sprite = run;
 
                 break;
 
 
 
 
-
             default:
 
-
                 if(idle != null)
-
-                    currentSprite = idle;
+                    sprite = idle;
 
 
                 break;
@@ -289,16 +264,11 @@ public class CharacterSprite {
 
 
 
-    // ==========================
-    // UPDATE
-    // ==========================
+
+    public String getState(){
 
 
-
-    public void update(){
-
-
-        animationController.update();
+        return currentState;
 
 
     }
@@ -309,10 +279,11 @@ public class CharacterSprite {
 
 
 
+
+
     // ==========================
     // POSIÇÃO
     // ==========================
-
 
 
     public void setPosition(
@@ -335,10 +306,25 @@ public class CharacterSprite {
 
 
 
+    public void update(){
+
+
+        animation.update();
+
+
+    }
+
+
+
+
+
+
+
+
+
     // ==========================
     // DESENHO
     // ==========================
-
 
 
     public void draw(
@@ -348,7 +334,7 @@ public class CharacterSprite {
 
 
 
-        if(currentSprite == null){
+        if(sprite == null){
 
             return;
 
@@ -356,17 +342,19 @@ public class CharacterSprite {
 
 
 
+
         float width =
-                currentSprite.getWidth()
+                sprite.getWidth()
                 *
                 scale;
 
 
 
         float height =
-                currentSprite.getHeight()
+                sprite.getHeight()
                 *
                 scale;
+
 
 
 
@@ -389,9 +377,11 @@ public class CharacterSprite {
 
 
 
+
+
         canvas.drawBitmap(
 
-                currentSprite,
+                sprite,
 
                 null,
 
@@ -411,15 +401,32 @@ public class CharacterSprite {
 
 
 
+
     public void setScale(
-            float value
+            float scale
     ){
 
 
-        scale = value;
+        this.scale = scale;
 
 
     }
+
+
+
+
+
+
+
+
+    public int getCurrentFrame(){
+
+
+        return animation.getFrame();
+
+
+    }
+
 
 
 
@@ -430,21 +437,7 @@ public class CharacterSprite {
     public AnimationController getAnimation(){
 
 
-        return animationController;
-
-
-    }
-
-
-
-
-
-
-
-    public String getCurrentState(){
-
-
-        return currentState;
+        return animation;
 
 
     }
