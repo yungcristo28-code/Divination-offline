@@ -95,8 +95,6 @@ public class Hero extends CombatEntity {
 
 
 
-        animationController =
-                new AnimationController();
 
 
     }
