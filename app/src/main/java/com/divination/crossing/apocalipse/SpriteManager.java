@@ -21,9 +21,18 @@ public class SpriteManager {
     // SPRITES DO IGOR
     // ==========================
 
+
     private Bitmap igorIdle;
+
     private Bitmap igorAttack;
+
     private Bitmap igorRun;
+
+    private Bitmap igorSkill;
+
+    private Bitmap igorHit;
+
+    private Bitmap igorDeath;
 
 
 
@@ -33,10 +42,14 @@ public class SpriteManager {
             Context context
     ){
 
+
         this.context =
                 context.getApplicationContext();
 
+
     }
+
+
 
 
 
@@ -49,17 +62,22 @@ public class SpriteManager {
 
         if(instance == null){
 
+
             instance =
                     new SpriteManager(
                             context
                     );
 
+
         }
+
 
 
         return instance;
 
+
     }
+
 
 
 
@@ -74,9 +92,17 @@ public class SpriteManager {
     public void loadSprites(){
 
 
+
         /*
         
-        Futuro:
+        Aqui vamos ligar as artes HD
+        quando elas entrarem em:
+
+        app/src/main/res/drawable
+
+
+        Exemplo:
+
 
         igorIdle =
         BitmapFactory.decodeResource(
@@ -85,24 +111,12 @@ public class SpriteManager {
         );
 
 
-        igorAttack =
-        BitmapFactory.decodeResource(
-                context.getResources(),
-                R.drawable.igor_attack
-        );
-
-
-        igorRun =
-        BitmapFactory.decodeResource(
-                context.getResources(),
-                R.drawable.igor_run
-        );
-
-
         */
 
 
+
     }
+
 
 
 
@@ -114,28 +128,79 @@ public class SpriteManager {
     // ==========================
 
 
+
     public Bitmap getIgorIdle(){
+
 
         return igorIdle;
 
+
     }
+
+
+
 
 
 
     public Bitmap getIgorAttack(){
 
+
         return igorAttack;
 
+
     }
+
+
+
 
 
 
     public Bitmap getIgorRun(){
 
+
         return igorRun;
+
 
     }
 
+
+
+
+
+
+    public Bitmap getIgorSkill(){
+
+
+        return igorSkill;
+
+
+    }
+
+
+
+
+
+
+    public Bitmap getIgorHit(){
+
+
+        return igorHit;
+
+
+    }
+
+
+
+
+
+
+    public Bitmap getIgorDeath(){
+
+
+        return igorDeath;
+
+
+    }
 
 
 
