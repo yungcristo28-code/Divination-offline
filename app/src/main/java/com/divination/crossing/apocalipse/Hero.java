@@ -35,9 +35,8 @@ public class Hero extends CombatEntity {
 
     // VISUAL
 
-    private CharacterSprite characterSprite;
+  private CharacterSprite characterSprite;
 
-    private AnimationController animationController;
 
 
 
