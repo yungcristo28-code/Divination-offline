@@ -1,15 +1,15 @@
 package com.divination.crossing.apocalipse;
 
 
+import android.content.Context;
+
+
+
 public class Hero extends CombatEntity {
 
 
     private final String name;
 
-
-    // ==========================
-    // PROGRESSÃO
-    // ==========================
 
     private int level;
 
@@ -19,19 +19,11 @@ public class Hero extends CombatEntity {
 
 
 
-    // ==========================
-    // ECONOMIA
-    // ==========================
-
     private int gold;
 
     private int diamonds;
 
 
-
-    // ==========================
-    // COMBATE
-    // ==========================
 
     private float vampirism;
 
@@ -39,11 +31,8 @@ public class Hero extends CombatEntity {
 
 
 
-    // ==========================
-    // VISUAL
-    // ==========================
-
     private CharacterSprite characterSprite;
+
 
 
 
@@ -109,8 +98,52 @@ public class Hero extends CombatEntity {
 
 
 
+
     // ==========================
-    // ATAQUE
+    // VISUAL
+    // ==========================
+
+
+    public void updateSprite(){
+
+
+        characterSprite.update();
+
+
+    }
+
+
+
+
+    public CharacterSprite getCharacterSprite(){
+
+
+        return characterSprite;
+
+
+    }
+
+
+
+
+
+    public AnimationController getAnimationController(){
+
+
+        return characterSprite.getAnimation();
+
+
+    }
+
+
+
+
+
+
+
+
+    // ==========================
+    // COMBATE
     // ==========================
 
 
@@ -132,7 +165,6 @@ public class Hero extends CombatEntity {
 
 
         float damage = attack;
-
 
 
         target.takeDamage(
@@ -165,29 +197,18 @@ public class Hero extends CombatEntity {
 
 
 
-
-    // ==========================
-    // VISUAL
-    // ==========================
-
-
-    public void updateSprite(){
+    public void setState(
+            String state
+    ){
 
 
-        characterSprite.update();
-
-
-    }
+        this.state = state;
 
 
 
-
-
-
-    public CharacterSprite getCharacterSprite(){
-
-
-        return characterSprite;
+        characterSprite.changeState(
+                state
+        );
 
 
     }
@@ -195,15 +216,9 @@ public class Hero extends CombatEntity {
 
 
 
+    public String getState(){
 
-
-    // Mantido para compatibilidade futura
-
-    public AnimationController getAnimationController(){
-
-
-        return characterSprite.getAnimation();
-
+        return state;
 
     }
 
@@ -278,9 +293,7 @@ public class Hero extends CombatEntity {
         attack += 14;
 
 
-
         defense += 6;
-
 
 
     }
@@ -293,7 +306,7 @@ public class Hero extends CombatEntity {
 
 
     // ==========================
-    // OURO
+    // ECONOMIA
     // ==========================
 
 
@@ -308,8 +321,8 @@ public class Hero extends CombatEntity {
 
         }
 
-    }
 
+    }
 
 
 
@@ -339,21 +352,13 @@ public class Hero extends CombatEntity {
         gold -= amount;
 
 
-
         return true;
+
 
     }
 
 
 
-
-
-
-
-
-    // ==========================
-    // DIAMANTES
-    // ==========================
 
 
     public void addDiamond(
@@ -366,45 +371,6 @@ public class Hero extends CombatEntity {
             diamonds += amount;
 
         }
-
-    }
-
-
-
-
-
-
-
-
-    // ==========================
-    // ESTADO
-    // ==========================
-
-
-    public void setState(
-            String state
-    ){
-
-
-        this.state = state;
-
-
-
-        characterSprite.changeState(
-                state
-        );
-
-
-    }
-
-
-
-
-
-    public String getState(){
-
-
-        return state;
 
 
     }
@@ -477,9 +443,6 @@ public class Hero extends CombatEntity {
 
 
 
-
-
-
     public void setVampirism(
             float value
     ){
@@ -492,12 +455,10 @@ public class Hero extends CombatEntity {
         }
 
 
-
         vampirism = value;
 
 
     }
-
 
 
 }
