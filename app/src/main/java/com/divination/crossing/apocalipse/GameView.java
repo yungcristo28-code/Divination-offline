@@ -412,7 +412,12 @@ public class GameView extends View {
 
 
     }
-
+         igor.getCharacterSprite()
+         .setIdle(
+        SpriteManager
+        .getInstance(getContext())
+        .getIgorIdle()
+);
 
 
 
