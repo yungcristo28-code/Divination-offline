@@ -66,7 +66,40 @@ public class GameView extends View {
                 battleSystem.getDamageManager();
 
 
+
+
+
+        // ==========================
+        // SISTEMA DE SPRITES
+        // ==========================
+
+
+        SpriteManager spriteManager =
+                SpriteManager.getInstance(
+                        getContext()
+                );
+
+
+
+        spriteManager.loadSprites();
+
+
+
+        igor.getCharacterSprite()
+                .setIdle(
+                        spriteManager.getIgorIdle()
+                );
+
+
+
+        igor.getCharacterSprite()
+                .setAttack(
+                        spriteManager.getIgorAttack()
+                );
+
+
     }
+
 
 
 
@@ -95,9 +128,8 @@ public class GameView extends View {
 
 
 
-        // Atualiza animação
-
         igor.updateSprite();
+
 
 
 
@@ -118,7 +150,9 @@ public class GameView extends View {
 
 
 
+
         // TITULO
+
 
         paint.setColor(
                 Color.WHITE
@@ -144,6 +178,7 @@ public class GameView extends View {
 
         // ARENA
 
+
         paint.setColor(
                 Color.rgb(
                         25,
@@ -167,10 +202,13 @@ public class GameView extends View {
 
 
 
-        // POSIÇÃO DO IGOR
+
+        // POSIÇÃO DO HEROI
+
 
         float playerX =
                 width * 0.30f;
+
 
 
         float playerY =
@@ -189,7 +227,7 @@ public class GameView extends View {
 
 
 
-        // DESENHA IGOR PELO SISTEMA DE SPRITE
+
 
         igor.getCharacterSprite()
                 .draw(
@@ -203,14 +241,17 @@ public class GameView extends View {
 
 
 
-        // AURA TEMPORÁRIA
+        // AURA
+
 
         paint.setStyle(
                 Paint.Style.STROKE
         );
 
 
-        paint.setStrokeWidth(4);
+        paint.setStrokeWidth(
+                4
+        );
 
 
 
@@ -232,6 +273,7 @@ public class GameView extends View {
         );
 
 
+
         paint.setStyle(
                 Paint.Style.FILL
         );
@@ -244,11 +286,13 @@ public class GameView extends View {
 
         // INIMIGOS TESTE
 
+
         drawEnemy(
                 canvas,
                 width * 0.65f,
                 height * 0.50f
         );
+
 
 
         drawEnemy(
@@ -272,6 +316,7 @@ public class GameView extends View {
 
 
 
+
         drawButton(
                 canvas,
                 40,
@@ -280,6 +325,7 @@ public class GameView extends View {
                 height - 35,
                 "◀"
         );
+
 
 
         drawButton(
@@ -314,8 +360,8 @@ public class GameView extends View {
         );
 
 
-
     }
+
 
 
 
@@ -331,6 +377,7 @@ public class GameView extends View {
         paint.setColor(
                 Color.DKGRAY
         );
+
 
 
         canvas.drawRect(
@@ -352,6 +399,7 @@ public class GameView extends View {
         );
 
 
+
         canvas.drawRect(
                 30,
                 95,
@@ -367,12 +415,15 @@ public class GameView extends View {
         );
 
 
-        paint.setTextSize(20);
+
+        paint.setTextSize(
+                20
+        );
 
 
 
         canvas.drawText(
-                "IGOR  LV." + igor.getLevel(),
+                "IGOR LV." + igor.getLevel(),
                 30,
                 155,
                 paint
@@ -380,6 +431,7 @@ public class GameView extends View {
 
 
     }
+
 
 
 
@@ -403,6 +455,7 @@ public class GameView extends View {
         );
 
 
+
         canvas.drawCircle(
                 x,
                 y,
@@ -412,12 +465,8 @@ public class GameView extends View {
 
 
     }
-         igor.getCharacterSprite()
-         .setIdle(
-        SpriteManager
-        .getInstance(getContext())
-        .getIgorIdle()
-);
+
+
 
 
 
@@ -443,6 +492,7 @@ public class GameView extends View {
         );
 
 
+
         canvas.drawRoundRect(
                 left,
                 top,
@@ -460,7 +510,10 @@ public class GameView extends View {
         );
 
 
-        paint.setTextSize(22);
+
+        paint.setTextSize(
+                22
+        );
 
 
 
