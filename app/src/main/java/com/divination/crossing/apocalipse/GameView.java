@@ -70,7 +70,7 @@ public class GameView extends View {
 
 
         // ==========================
-        // SISTEMA DE SPRITES
+        // SPRITE MANAGER
         // ==========================
 
 
@@ -91,15 +91,7 @@ public class GameView extends View {
                 );
 
 
-
-        igor.getCharacterSprite()
-                .setAttack(
-                        spriteManager.getIgorAttack()
-                );
-
-
     }
-
 
 
 
@@ -127,16 +119,11 @@ public class GameView extends View {
 
 
 
-
         igor.updateSprite();
 
 
 
 
-
-
-
-        // FUNDO
 
         canvas.drawColor(
                 Color.rgb(
@@ -147,11 +134,6 @@ public class GameView extends View {
         );
 
 
-
-
-
-
-        // TITULO
 
 
         paint.setColor(
@@ -172,11 +154,6 @@ public class GameView extends View {
 
 
 
-
-
-
-
-        // ARENA
 
 
         paint.setColor(
@@ -201,11 +178,6 @@ public class GameView extends View {
 
 
 
-
-
-        // POSIÇÃO DO HEROI
-
-
         float playerX =
                 width * 0.30f;
 
@@ -227,8 +199,6 @@ public class GameView extends View {
 
 
 
-
-
         igor.getCharacterSprite()
                 .draw(
                         canvas,
@@ -238,10 +208,6 @@ public class GameView extends View {
 
 
 
-
-
-
-        // AURA
 
 
         paint.setStyle(
@@ -283,10 +249,6 @@ public class GameView extends View {
 
 
 
-
-        // INIMIGOS TESTE
-
-
         drawEnemy(
                 canvas,
                 width * 0.65f,
@@ -305,13 +267,9 @@ public class GameView extends View {
 
 
 
-
-
         drawHud(
                 canvas
         );
-
-
 
 
 
@@ -361,7 +319,6 @@ public class GameView extends View {
 
 
     }
-
 
 
 
@@ -438,7 +395,6 @@ public class GameView extends View {
 
 
 
-
     private void drawEnemy(
             Canvas canvas,
             float x,
@@ -465,7 +421,6 @@ public class GameView extends View {
 
 
     }
-
 
 
 
