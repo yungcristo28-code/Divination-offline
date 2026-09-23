@@ -1,33 +1,25 @@
 package com.divination.crossing.apocalipse;
 
 
-
 public class AnimationController {
-
 
 
     private String currentAnimation;
 
 
-
     private int frame;
-
 
 
     private int maxFrames;
 
 
-
-    private float frameTimer;
-
+    private float timer;
 
 
     private float frameDuration;
 
 
-
     private boolean loop;
-
 
 
     private boolean finished;
@@ -36,43 +28,31 @@ public class AnimationController {
 
 
 
-
-
     public AnimationController(){
-
 
 
         currentAnimation = "IDLE";
 
 
-
         frame = 0;
-
 
 
         maxFrames = 4;
 
 
-
-        frameTimer = 0;
-
+        timer = 0;
 
 
-        frameDuration = 1000f / 60f;
-
+        frameDuration = 16.6f;
 
 
         loop = true;
 
 
-
         finished = false;
 
 
-
     }
-
-
 
 
 
@@ -84,17 +64,32 @@ public class AnimationController {
     // ==========================
 
 
+    public void update(){
+
+
+        update(
+                16.6f
+        );
+
+
+    }
+
+
+
+
+
+
+
     public void update(
             float deltaTime
     ){
 
 
-
-        frameTimer += deltaTime;
-
+        timer += deltaTime;
 
 
-        if(frameTimer >= frameDuration){
+
+        if(timer >= frameDuration){
 
 
 
@@ -102,7 +97,7 @@ public class AnimationController {
 
 
 
-            frameTimer = 0;
+            timer = 0;
 
 
 
@@ -129,35 +124,14 @@ public class AnimationController {
                 }
 
 
-
             }
-
 
 
         }
 
 
-
     }
 
-
-
-
-
-
-
-
-    // Compatibilidade
-
-    public void update(){
-
-
-        update(
-                16.6f
-        );
-
-
-    }
 
 
 
@@ -166,7 +140,7 @@ public class AnimationController {
 
 
     // ==========================
-    // TROCAR ANIMAÇÃO
+    // TROCA DE ANIMAÇÃO
     // ==========================
 
 
@@ -176,7 +150,9 @@ public class AnimationController {
 
 
 
-        if(!currentAnimation.equals(animation)){
+        if(
+                !currentAnimation.equals(animation)
+        ){
 
 
 
@@ -188,12 +164,11 @@ public class AnimationController {
 
 
 
-            frameTimer = 0;
+            timer = 0;
 
 
 
             finished = false;
-
 
 
 
@@ -204,51 +179,66 @@ public class AnimationController {
 
                 case "ATTACK":
 
+
                     maxFrames = 6;
 
                     loop = false;
 
+
                     break;
+
 
 
 
                 case "SKILL":
 
+
                     maxFrames = 8;
 
                     loop = false;
 
+
                     break;
+
 
 
 
                 case "HIT":
 
+
                     maxFrames = 3;
 
                     loop = false;
 
+
                     break;
+
 
 
 
                 case "DEATH":
 
+
                     maxFrames = 10;
 
                     loop = false;
 
+
                     break;
+
 
 
 
                 case "RUN":
 
+
                     maxFrames = 6;
 
                     loop = true;
 
+
                     break;
+
 
 
 
@@ -263,11 +253,13 @@ public class AnimationController {
                     break;
 
 
+
             }
 
 
 
         }
+
 
 
     }
@@ -318,7 +310,6 @@ public class AnimationController {
 
 
 
-
     public void reset(){
 
 
@@ -326,14 +317,13 @@ public class AnimationController {
         frame = 0;
 
 
-        frameTimer = 0;
+        timer = 0;
 
 
         finished = false;
 
 
     }
-
 
 
 
