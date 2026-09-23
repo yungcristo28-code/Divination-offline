@@ -4,13 +4,27 @@ package com.divination.crossing.apocalipse;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Paint;
+import android.graphics.RectF;
 
 
 
 public class CharacterSprite {
 
 
+
     private Bitmap sprite;
+
+
+    private Bitmap idle;
+
+    private Bitmap attack;
+
+    private Bitmap skill;
+
+    private Bitmap hit;
+
+    private Bitmap death;
+
 
 
     private float x;
@@ -21,7 +35,10 @@ public class CharacterSprite {
     private float scale;
 
 
+
     private AnimationController animation;
+
+
 
 
 
@@ -39,19 +56,147 @@ public class CharacterSprite {
         animation =
                 new AnimationController();
 
+
     }
 
 
 
 
 
-    public void setSprite(
+
+
+    // ==========================
+    // SPRITES
+    // ==========================
+
+
+    public void setIdle(
             Bitmap bitmap
     ){
+
+        idle = bitmap;
 
         sprite = bitmap;
 
     }
+
+
+
+
+
+    public void setAttack(
+            Bitmap bitmap
+    ){
+
+        attack = bitmap;
+
+    }
+
+
+
+
+
+    public void setSkill(
+            Bitmap bitmap
+    ){
+
+        skill = bitmap;
+
+    }
+
+
+
+
+
+    public void setHit(
+            Bitmap bitmap
+    ){
+
+        hit = bitmap;
+
+    }
+
+
+
+
+
+    public void setDeath(
+            Bitmap bitmap
+    ){
+
+        death = bitmap;
+
+    }
+
+
+
+
+
+
+
+    // ==========================
+    // ESTADO
+    // ==========================
+
+
+    public void changeState(
+            String state
+    ){
+
+
+        switch(state){
+
+
+            case "ATTACK":
+
+                if(attack != null)
+                    sprite = attack;
+
+                break;
+
+
+
+            case "SKILL":
+
+                if(skill != null)
+                    sprite = skill;
+
+                break;
+
+
+
+            case "HIT":
+
+                if(hit != null)
+                    sprite = hit;
+
+                break;
+
+
+
+            case "DEAD":
+
+                if(death != null)
+                    sprite = death;
+
+                break;
+
+
+
+            default:
+
+                if(idle != null)
+                    sprite = idle;
+
+
+                break;
+
+        }
+
+
+    }
+
+
 
 
 
@@ -66,7 +211,10 @@ public class CharacterSprite {
 
         this.y = y;
 
+
     }
+
+
 
 
 
@@ -79,6 +227,8 @@ public class CharacterSprite {
 
 
     }
+
+
 
 
 
@@ -98,13 +248,47 @@ public class CharacterSprite {
 
 
 
+
+        float width =
+                sprite.getWidth()
+                *
+                scale;
+
+
+
+        float height =
+                sprite.getHeight()
+                *
+                scale;
+
+
+
+
+
+        RectF destination =
+                new RectF(
+
+                        x - width/2,
+
+                        y - height/2,
+
+                        x + width/2,
+
+                        y + height/2
+
+                );
+
+
+
+
+
         canvas.drawBitmap(
 
                 sprite,
 
-                x,
+                null,
 
-                y,
+                destination,
 
                 paint
 
@@ -112,6 +296,22 @@ public class CharacterSprite {
 
 
     }
+
+
+
+
+
+
+
+    public void setScale(
+            float scale
+    ){
+
+        this.scale = scale;
+
+    }
+
+
 
 
 
