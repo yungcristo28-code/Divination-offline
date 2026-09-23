@@ -6,16 +6,25 @@ import android.graphics.BitmapFactory;
 import android.content.Context;
 
 
+
 public class SpriteManager {
+
 
 
     private static SpriteManager instance;
 
 
+
     private Bitmap igorIdle;
+
+    private Bitmap igorAttack;
+
+    private Bitmap igorHit;
+
 
 
     private Context context;
+
 
 
 
@@ -26,7 +35,10 @@ public class SpriteManager {
 
         this.context = context;
 
+
     }
+
+
 
 
 
@@ -37,19 +49,27 @@ public class SpriteManager {
     ){
 
 
+
         if(instance == null){
+
 
             instance =
                     new SpriteManager(
                             context
                     );
 
+
         }
+
 
 
         return instance;
 
+
     }
+
+
+
 
 
 
@@ -58,19 +78,71 @@ public class SpriteManager {
     public void loadSprites(){
 
 
-        /*
-         Futuramente:
-         
-         igorIdle =
-         BitmapFactory.decodeResource(
-              context.getResources(),
-              R.drawable.igor_idle
-         );
 
-        */
+        try {
+
+
+
+            igorIdle =
+                    BitmapFactory.decodeResource(
+                            context.getResources(),
+                            context.getResources()
+                                    .getIdentifier(
+                                            "igor_idle",
+                                            "drawable",
+                                            context.getPackageName()
+                                    )
+                    );
+
+
+
+            igorAttack =
+                    BitmapFactory.decodeResource(
+                            context.getResources(),
+                            context.getResources()
+                                    .getIdentifier(
+                                            "igor_attack",
+                                            "drawable",
+                                            context.getPackageName()
+                                    )
+                    );
+
+
+
+            igorHit =
+                    BitmapFactory.decodeResource(
+                            context.getResources(),
+                            context.getResources()
+                                    .getIdentifier(
+                                            "igor_hit",
+                                            "drawable",
+                                            context.getPackageName()
+                                    )
+                    );
+
+
+
+        }
+
+        catch(Exception e){
+
+
+
+            igorIdle = null;
+
+            igorAttack = null;
+
+            igorHit = null;
+
+
+        }
+
 
 
     }
+
+
+
 
 
 
@@ -78,9 +150,40 @@ public class SpriteManager {
 
     public Bitmap getIgorIdle(){
 
+
         return igorIdle;
 
+
     }
+
+
+
+
+
+
+    public Bitmap getIgorAttack(){
+
+
+        return igorAttack;
+
+
+    }
+
+
+
+
+
+
+    public Bitmap getIgorHit(){
+
+
+        return igorHit;
+
+
+    }
+
+
+
 
 
 }
