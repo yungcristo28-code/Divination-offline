@@ -7,12 +7,10 @@ public class GameManager {
     private static GameManager instance;
 
 
-
     private Hero activeHero;
 
 
     private BattleSystem battleSystem;
-
 
 
     private int currentStage;
@@ -23,6 +21,29 @@ public class GameManager {
 
     private GameManager(){
 
+
+        createHero();
+
+
+        currentStage = 1;
+
+
+        battleSystem =
+                new BattleSystem(
+                        activeHero
+                );
+
+
+        createStage();
+
+
+    }
+
+
+
+
+
+    private void createHero(){
 
 
         activeHero =
@@ -37,25 +58,14 @@ public class GameManager {
                 );
 
 
+        activeHero.addGold(
+                500
+        );
 
-        activeHero.addGold(500);
-
-
-
-        currentStage = 1;
-
-
-
-        battleSystem =
-                new BattleSystem(
-                        activeHero
-                );
-
-
-
-        createStage();
 
     }
+
+
 
 
 
@@ -74,18 +84,17 @@ public class GameManager {
 
         return instance;
 
+
     }
 
 
 
 
 
-    // ==========================
-    // CRIAR FASE
-    // ==========================
 
 
     private void createStage(){
+
 
 
         battleSystem.addEnemy(
@@ -104,6 +113,7 @@ public class GameManager {
 
 
 
+
         battleSystem.addEnemy(
 
                 new Enemy(
@@ -113,3 +123,96 @@ public class GameManager {
                         450,
                         40,
                         8,
+                        1.0f
+                )
+
+        );
+
+
+    }
+
+
+
+
+
+
+
+
+    // ==========================
+    // ACESSO AO HEROI
+    // ==========================
+
+
+    public Hero getActiveHero(){
+
+
+        return activeHero;
+
+
+    }
+
+
+
+
+    // Compatibilidade com GameView atual
+
+    public Hero getIgor(){
+
+
+        return activeHero;
+
+
+    }
+
+
+
+
+
+
+
+
+    public BattleSystem getBattleSystem(){
+
+
+        return battleSystem;
+
+
+    }
+
+
+
+
+
+
+
+    public int getCurrentStage(){
+
+
+        return currentStage;
+
+
+    }
+
+
+
+
+
+
+
+    public void setCurrentStage(
+            int stage
+    ){
+
+
+        if(stage > 0){
+
+            currentStage = stage;
+
+        }
+
+
+    }
+
+
+
+}
