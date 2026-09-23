@@ -7,7 +7,9 @@ public class Hero extends CombatEntity {
     private final String name;
 
 
+    // ==========================
     // PROGRESSÃO
+    // ==========================
 
     private int level;
 
@@ -17,7 +19,9 @@ public class Hero extends CombatEntity {
 
 
 
+    // ==========================
     // ECONOMIA
+    // ==========================
 
     private int gold;
 
@@ -25,7 +29,9 @@ public class Hero extends CombatEntity {
 
 
 
+    // ==========================
     // COMBATE
+    // ==========================
 
     private float vampirism;
 
@@ -33,9 +39,11 @@ public class Hero extends CombatEntity {
 
 
 
+    // ==========================
     // VISUAL
+    // ==========================
 
-  private CharacterSprite characterSprite;
+    private CharacterSprite characterSprite;
 
 
 
@@ -94,11 +102,7 @@ public class Hero extends CombatEntity {
                 new CharacterSprite();
 
 
-
-
-
     }
-
 
 
 
@@ -161,15 +165,13 @@ public class Hero extends CombatEntity {
 
 
 
+
     // ==========================
-    // ATUALIZA VISUAL
+    // VISUAL
     // ==========================
 
 
     public void updateSprite(){
-
-
-        animationController.update();
 
 
         characterSprite.update();
@@ -181,19 +183,30 @@ public class Hero extends CombatEntity {
 
 
 
+
     public CharacterSprite getCharacterSprite(){
+
 
         return characterSprite;
 
+
     }
 
 
+
+
+
+
+    // Mantido para compatibilidade futura
 
     public AnimationController getAnimationController(){
 
-        return animationController;
+
+        return characterSprite.getAnimation();
+
 
     }
+
 
 
 
@@ -239,6 +252,7 @@ public class Hero extends CombatEntity {
 
 
 
+
     private void levelUp(){
 
 
@@ -248,6 +262,7 @@ public class Hero extends CombatEntity {
         level++;
 
 
+
         experienceNext =
                 level * 100;
 
@@ -255,16 +270,21 @@ public class Hero extends CombatEntity {
 
         maxHp += 95;
 
+
         hp = maxHp;
+
 
 
         attack += 14;
 
 
+
         defense += 6;
 
 
+
     }
+
 
 
 
@@ -294,6 +314,7 @@ public class Hero extends CombatEntity {
 
 
 
+
     public boolean spendGold(
             int amount
     ){
@@ -318,9 +339,11 @@ public class Hero extends CombatEntity {
         gold -= amount;
 
 
+
         return true;
 
     }
+
 
 
 
@@ -352,6 +375,7 @@ public class Hero extends CombatEntity {
 
 
 
+
     // ==========================
     // ESTADO
     // ==========================
@@ -365,7 +389,8 @@ public class Hero extends CombatEntity {
         this.state = state;
 
 
-        animationController.setAnimation(
+
+        characterSprite.changeState(
                 state
         );
 
@@ -375,11 +400,15 @@ public class Hero extends CombatEntity {
 
 
 
+
     public String getState(){
+
 
         return state;
 
+
     }
+
 
 
 
@@ -450,6 +479,7 @@ public class Hero extends CombatEntity {
 
 
 
+
     public void setVampirism(
             float value
     ){
@@ -462,10 +492,12 @@ public class Hero extends CombatEntity {
         }
 
 
+
         vampirism = value;
 
 
     }
+
 
 
 }
