@@ -256,15 +256,15 @@ public class Hero extends CombatEntity {
 
 
 
-        maxHp += 80;
+        maxHp += 95;
 
         hp = maxHp;
 
 
-        attack += 12;
+        attack += 14;
 
 
-        defense += 5;
+        defense += 6;
 
 
     }
