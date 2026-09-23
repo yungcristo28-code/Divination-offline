@@ -8,6 +8,7 @@ import android.graphics.Paint;
 import android.view.View;
 
 
+
 public class GameView extends View {
 
 
@@ -27,7 +28,9 @@ public class GameView extends View {
 
 
 
+
     public GameView(Context context){
+
 
         super(context);
 
@@ -69,10 +72,13 @@ public class GameView extends View {
 
 
 
+
+
     @Override
     protected void onDraw(
             Canvas canvas
     ){
+
 
         super.onDraw(canvas);
 
@@ -84,6 +90,16 @@ public class GameView extends View {
 
         int height =
                 getHeight();
+
+
+
+
+
+        // Atualiza animação
+
+        igor.updateSprite();
+
+
 
 
 
@@ -100,11 +116,17 @@ public class GameView extends View {
 
 
 
+
+
         // TITULO
 
-        paint.setColor(Color.WHITE);
+        paint.setColor(
+                Color.WHITE
+        );
+
 
         paint.setTextSize(28);
+
 
 
         canvas.drawText(
@@ -113,6 +135,8 @@ public class GameView extends View {
                 50,
                 paint
         );
+
+
 
 
 
@@ -129,6 +153,7 @@ public class GameView extends View {
         );
 
 
+
         canvas.drawRect(
                 0,
                 80,
@@ -141,7 +166,8 @@ public class GameView extends View {
 
 
 
-        // IGOR PROVISORIO
+
+        // POSIÇÃO DO IGOR
 
         float playerX =
                 width * 0.30f;
@@ -152,26 +178,32 @@ public class GameView extends View {
 
 
 
-        paint.setColor(
-                Color.rgb(
-                        110,
-                        40,
-                        150
-                )
-        );
 
 
-        canvas.drawCircle(
-                playerX,
-                playerY,
-                38,
-                paint
-        );
+        igor.getCharacterSprite()
+                .setPosition(
+                        playerX,
+                        playerY
+                );
 
 
 
 
-        // AURA
+        // DESENHA IGOR PELO SISTEMA DE SPRITE
+
+        igor.getCharacterSprite()
+                .draw(
+                        canvas,
+                        paint
+                );
+
+
+
+
+
+
+
+        // AURA TEMPORÁRIA
 
         paint.setStyle(
                 Paint.Style.STROKE
@@ -181,6 +213,7 @@ public class GameView extends View {
         paint.setStrokeWidth(4);
 
 
+
         paint.setColor(
                 Color.rgb(
                         180,
@@ -188,6 +221,7 @@ public class GameView extends View {
                         220
                 )
         );
+
 
 
         canvas.drawCircle(
@@ -201,6 +235,7 @@ public class GameView extends View {
         paint.setStyle(
                 Paint.Style.FILL
         );
+
 
 
 
@@ -226,7 +261,7 @@ public class GameView extends View {
 
 
 
-        // HUD
+
 
         drawHud(
                 canvas
@@ -236,7 +271,6 @@ public class GameView extends View {
 
 
 
-        // BOTÕES
 
         drawButton(
                 canvas,
@@ -269,6 +303,7 @@ public class GameView extends View {
         );
 
 
+
         drawButton(
                 canvas,
                 width - 95,
@@ -286,12 +321,16 @@ public class GameView extends View {
 
 
 
+
+
     private void drawHud(
             Canvas canvas
     ){
 
 
-        paint.setColor(Color.DKGRAY);
+        paint.setColor(
+                Color.DKGRAY
+        );
 
 
         canvas.drawRect(
@@ -323,9 +362,13 @@ public class GameView extends View {
 
 
 
-        paint.setColor(Color.WHITE);
+        paint.setColor(
+                Color.WHITE
+        );
+
 
         paint.setTextSize(20);
+
 
 
         canvas.drawText(
@@ -335,7 +378,10 @@ public class GameView extends View {
                 paint
         );
 
+
     }
+
+
 
 
 
@@ -366,6 +412,8 @@ public class GameView extends View {
 
 
     }
+
+
 
 
 
@@ -402,9 +450,13 @@ public class GameView extends View {
 
 
 
-        paint.setColor(Color.WHITE);
+        paint.setColor(
+                Color.WHITE
+        );
+
 
         paint.setTextSize(22);
+
 
 
         canvas.drawText(
